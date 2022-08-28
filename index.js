@@ -25,8 +25,7 @@ const generateAccessToken = (req, res) => {
     if(!channelName) return res.status(400).json({'error': "Channel name required"});
 
     // get uid
-    let uid = req.query.uid;
-    if(!uid || uid==='') uid = 0; 
+    let uid = 0;
 
     // get role
     let role = RtcRole.PUBLISHER;
@@ -40,6 +39,8 @@ const generateAccessToken = (req, res) => {
 
     // build token
     const token = RtcTokenBuilder.buildTokenWithUid(APP_ID, APP_CERTIFICATE, channelName, uid, role, privelegeExpireTime);
+
+    console.log('channelName:', channelName);
 
     // return token
     return res.json({token: token});
